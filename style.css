@@ -1,1 +1,53 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #1b1b1b;
+}
 
+#sidebar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 280px;
+    height: 100%;
+    background: #242424;
+    color: white;
+    padding: 20px;
+    box-sizing: border-box;
+    z-index: 1000;
+    overflow-y: auto;
+    box-shadow: 2px 0 10px rgba(0,0,0,.4);
+}
+
+#sidebar h2 {
+    margin-top: 0;
+}
+
+#sidebar button {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    background: #3b82f6;
+    border: none;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+#sidebar button:hover {
+    background: #2563eb;
+}
+
+#map {
+    position: absolute;
+    left: 280px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: #111;
+}
