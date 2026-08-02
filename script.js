@@ -1,12 +1,16 @@
-// Размер изображения карты
-const imageWidth = 8192;
-const imageHeight = 8192;
+// ===========================
+// GTA Online Collectibles Map
+// ===========================
 
-// Создаём карту
+// Размер карты (измени под свою карту при необходимости)
+const MAP_WIDTH = 8192;
+const MAP_HEIGHT = 8192;
+
+// Создание карты
 const map = L.map("map", {
     crs: L.CRS.Simple,
     minZoom: -2,
-    maxZoom: 3,
+    maxZoom: 4,
     zoomControl: true,
     attributionControl: false
 });
@@ -14,31 +18,174 @@ const map = L.map("map", {
 // Границы изображения
 const bounds = [
     [0, 0],
-    [imageHeight, imageWidth]
+    [MAP_HEIGHT, MAP_WIDTH]
 ];
 
-// Подключаем карту
+// Загружаем карту
 L.imageOverlay("map/map.jpg", bounds).addTo(map);
 
-// Подгоняем карту под экран
+// Подгоняем карту
 map.fitBounds(bounds);
 
 // Ограничиваем перемещение
 map.setMaxBounds(bounds);
 
-// Пример маркера
-const marker = L.marker([4000, 4000]).addTo(map);
+// ===========================
+// Эмодзи категорий
+// ===========================
 
-marker.bindPopup(`
-<h3>Action Figure #1</h3>
+const icons = [
+    "🗿", // Figure
+    "🃏", // Card
+    "🌿", // Weed
+    "💿", // Media Stick
+    "🔫",
+    "👕",
+    "💈",
+    "🏠",
+    "🚗",
+    "✈️",
+    "🚁",
+    "⛽",
+    "🎰",
+    "🏁"
+];
 
-<button onclick="alert('Отмечено')">
-✔ Отметить найденной
-</button>
+// ===========================
+// Создание красивой иконки
+// ===========================
 
-<br><br>
+function createIcon(emoji) {
 
-<button onclick="window.open('https://www.youtube.com/watch?v=SXe9X4rv9tc&t=1245s')">
-🎥 Посмотреть видео
-</button>
-`);
+    return L.divIcon({
+
+        className: "marker",
+
+        html: `
+        <div style="
+            font-size:28px;
+            text-shadow:
+                0 0 8px black,
+                0 0 15px black;
+            transition:.2s;
+        ">
+            ${emoji}
+        </div>
+        `,
+
+        iconSize: [32,32],
+        iconAnchor: [16,16]
+
+    });
+
+}
+
+// ===========================
+// Добавляем случайные маркеры
+// ===========================
+
+const markers = [];
+
+for(let i=1;i<=300;i++){
+
+    const x=Math.random()*MAP_WIDTH;
+    const y=Math.random()*MAP_HEIGHT;
+
+    const emoji=icons[Math.floor(Math.random()*icons.length)];
+
+    const marker=L.marker(
+        [y,x],
+        {
+            icon:createIcon(emoji)
+        }
+    );
+
+    marker.bindPopup(`
+
+        <div style="min-width:220px">
+
+            <h2 style="margin-top:0">
+                ${emoji} Marker #${i}
+            </h2>
+
+            <button
+            style="
+            width:100%;
+            padding:10px;
+            border:none;
+            border-radius:8px;
+            background:#22c55e;
+            color:white;
+            cursor:pointer;
+            "
+            onclick="found(${i})">
+
+            ✔ Отметить найденным
+
+            </button>
+
+            <br><br>
+
+            <button
+            style="
+            width:100%;
+            padding:10px;
+            border:none;
+            border-radius:8px;
+            background:#2563eb;
+            color:white;
+            cursor:pointer;
+            "
+            onclick="video(${i})">
+
+            🎥 Видео
+
+            </button>
+
+        </div>
+
+    `);
+
+    marker.addTo(map);
+
+    markers.push(marker);
+
+}
+
+// ===========================
+// Найдено
+// ===========================
+
+function found(id){
+
+    alert("Позже здесь будет сохранение предмета №"+id);
+
+}
+
+// ===========================
+// Видео
+// ===========================
+
+function video(id){
+
+    alert("Позже откроется видео для предмета №"+id);
+
+}
+
+// ===========================
+// Координаты мыши
+// ===========================
+
+map.on("click",function(e){
+
+    console.log(
+
+        "X:",
+        Math.round(e.latlng.lng),
+
+        "Y:",
+        Math.round(e.latlng.lat)
+
+    );
+
+});
