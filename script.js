@@ -2,10 +2,6 @@
 // GTA Online Collectibles Map - ИСПРАВЛЕННАЯ ВЕРСИЯ
 // ===========================
 
-// Размер карты (Убедись, что соответствует твоему изображению)
-const MAP_WIDTH = 8192;
-const MAP_HEIGHT = 8192;
-
 // Создание карты
 const map = L.map("map", {
     crs: L.CRS.Simple,
@@ -15,24 +11,50 @@ const map = L.map("map", {
     attributionControl: false
 });
 
-// Границы изображения
-const bounds = [
-    [0, 0],
-    [MAP_HEIGHT, MAP_WIDTH]
-];
+// ===========================
+// АВТО-ОПРЕДЕЛЕНИЕ РАЗМЕРА КАРТЫ
+// ===========================
+const imageUrl = "map/map.jpg";
+let MAP_WIDTH = 8192; // Значения по умолчанию
+let MAP_HEIGHT = 8192;
 
-// Загружаем карту
-L.imageOverlay("map/map.jpg", bounds).addTo(map);
-map.fitBounds(bounds);
-map.setMaxBounds(bounds);
+// Загружаем картинку и узнаём её реальные размеры
+const img = new Image();
+img.onload = function() {
+    MAP_WIDTH = this.width;
+    MAP_HEIGHT = this.height;
+    initMap();
+};
+img.src = imageUrl;
+
+// Если картинка уже загрузилась (из кеша)
+if (img.complete) {
+    MAP_WIDTH = img.width;
+    MAP_HEIGHT = img.height;
+    initMap();
+}
+
+function initMap() {
+    const bounds = [
+        [0, 0],
+        [MAP_HEIGHT, MAP_WIDTH]
+    ];
+    
+    L.imageOverlay(imageUrl, bounds).addTo(map);
+    map.fitBounds(bounds);
+    map.setMaxBounds(bounds);
+    
+    // Теперь, когда карта готова, можно рисовать маркеры
+    renderMarkers('all');
+}
 
 // ===========================
-// ДАННЫЕ ПРЕДМЕТОВ (РЕАЛИСТИЧНЫЕ КООРДИНАТЫ)
+// ДАННЫЕ ПРЕДМЕТОВ (ФИКСИРОВАННЫЕ КООРДИНАТЫ)
 // ===========================
 
 const collectiblesData = [];
 
-// ФИГУРКИ (100 шт) - распределены по всей карте
+// ФИГУРКИ (100 шт) - равномерно распределены по карте
 const figureCoords = [
     [520,380], [890,740], [1240,210], [1580,890], [1920,450],
     [2260,1120], [2600,580], [2940,1350], [3280,720], [3620,1580],
@@ -182,13 +204,14 @@ function saveFoundItems() {
 }
 
 // ===========================
-// ОТРИСОВКА КАРТЫ
+// ОТРИСОВКА МАРКЕРОВ
 // ===========================
 
 let allMarkers = [];
 let currentFilter = 'all';
 
 function renderMarkers(filter = 'all') {
+    // Очищаем старые маркеры, если они есть
     allMarkers.forEach(m => map.removeLayer(m));
     allMarkers = [];
 
@@ -281,8 +304,8 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
 
 document.getElementById('reset-btn').addEventListener('click', resetAll);
 
+// Активируем кнопку "Все" по умолчанию
 document.querySelector('.filter-btn[data-type="all"]').classList.add('active');
-renderMarkers('all');
 
 // ===========================
 // КООРДИНАТЫ МЫШИ (для отладки)
