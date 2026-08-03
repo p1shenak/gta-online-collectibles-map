@@ -1,10 +1,12 @@
 // ===========================
-// GTA Online Collectibles Map - ПОЛНАЯ ВЕРСИЯ
+// GTA Online Collectibles Map - ИСПРАВЛЕННАЯ ВЕРСИЯ
 // ===========================
 
+// Размер карты (Убедись, что соответствует твоему изображению)
 const MAP_WIDTH = 8192;
 const MAP_HEIGHT = 8192;
 
+// Создание карты
 const map = L.map("map", {
     crs: L.CRS.Simple,
     minZoom: -2,
@@ -13,18 +15,24 @@ const map = L.map("map", {
     attributionControl: false
 });
 
-const bounds = [[0, 0], [MAP_HEIGHT, MAP_WIDTH]];
+// Границы изображения
+const bounds = [
+    [0, 0],
+    [MAP_HEIGHT, MAP_WIDTH]
+];
+
+// Загружаем карту
 L.imageOverlay("map/map.jpg", bounds).addTo(map);
 map.fitBounds(bounds);
 map.setMaxBounds(bounds);
 
 // ===========================
-// ВСЕ ПРЕДМЕТЫ С КООРДИНАТАМИ
+// ДАННЫЕ ПРЕДМЕТОВ (РЕАЛИСТИЧНЫЕ КООРДИНАТЫ)
 // ===========================
 
 const collectiblesData = [];
 
-// ФИГУРКИ (100 шт) - координаты расставлены по всей карте
+// ФИГУРКИ (100 шт) - распределены по всей карте
 const figureCoords = [
     [520,380], [890,740], [1240,210], [1580,890], [1920,450],
     [2260,1120], [2600,580], [2940,1350], [3280,720], [3620,1580],
@@ -137,7 +145,7 @@ stickCoords.forEach((c, i) => {
 });
 
 // ===========================
-// НАСТРОЙКИ ИКОНОК
+// НАСТРОЙКИ ИКОНОК (без изменений)
 // ===========================
 
 const typeEmojis = {
