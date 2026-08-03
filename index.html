@@ -17,21 +17,30 @@
 <body>
 
 <div id="sidebar">
-
-    <h2>GTA Online Map</h2>
-
-    <button>🗿 Action Figures</button>
-    <button>🃏 Playing Cards</button>
-    <button>🌿 LD Organics</button>
-    <button>💿 Media Sticks</button>
+    <h2>🎮 GTA Online Map</h2>
+    
+    <div class="filter-section">
+        <button class="filter-btn" data-type="all">📌 Все</button>
+        <button class="filter-btn" data-type="figure">🗿 Фигурки</button>
+        <button class="filter-btn" data-type="card">🃏 Карты</button>
+        <button class="filter-btn" data-type="weed">🌿 LD Organics</button>
+        <button class="filter-btn" data-type="stick">💿 Media Sticks</button>
+    </div>
 
     <hr>
 
-    <p>Action Figures: 0 / 100</p>
-    <p>Playing Cards: 0 / 54</p>
-    <p>LD Organics: 0 / 100</p>
-    <p>Media Sticks: 0 / 10</p>
+    <div class="stats">
+        <p>🗿 Фигурки: <span id="count-figure">0</span> / 100</p>
+        <p>🃏 Карты: <span id="count-card">0</span> / 54</p>
+        <p>🌿 LD Organics: <span id="count-weed">0</span> / 100</p>
+        <p>💿 Media Sticks: <span id="count-stick">0</span> / 10</p>
+    </div>
 
+    <hr>
+
+    <button id="reset-btn" style="width:100%; padding:10px; background:#dc2626; color:white; border:none; border-radius:8px; cursor:pointer;">
+        🔄 Сбросить все найденные
+    </button>
 </div>
 
 <div id="map"></div>
