@@ -1,38 +1,55 @@
-/* ... твой существующий CSS ... */
+/* ===========================
+   БАЗОВЫЕ СТИЛИ
+   =========================== */
 
-/* Добавь это в конец файла */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-/* Стили для сайдбара */
+body {
+    font-family: Arial, sans-serif;
+    background: #0a0a0f;
+    color: #fff;
+    overflow: hidden;
+    height: 100vh;
+}
+
+/* ===========================
+   САЙДБАР
+   =========================== */
+
 #sidebar {
     position: fixed;
     left: 0;
     top: 0;
-    width: 250px;
+    width: 260px;
     height: 100vh;
-    background: rgba(20, 20, 30, 0.95);
+    background: rgba(15, 15, 25, 0.95);
+    backdrop-filter: blur(10px);
     padding: 20px;
     z-index: 1000;
     overflow-y: auto;
-    color: white;
-    font-family: Arial, sans-serif;
-    box-shadow: 2px 0 10px rgba(0,0,0,0.5);
+    box-shadow: 2px 0 20px rgba(0, 0, 0, 0.7);
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 #sidebar h2 {
     margin-top: 0;
     text-align: center;
-    font-size: 20px;
+    font-size: 22px;
+    font-weight: 700;
+    color: #f0f0f0;
+    letter-spacing: 1px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-#map {
-    position: absolute;
-    left: 250px;
-    top: 0;
-    right: 0;
-    bottom: 0;
-}
+/* ===========================
+   КНОПКИ ФИЛЬТРОВ
+   =========================== */
 
-/* Кнопки фильтров */
 .filter-section {
     display: flex;
     flex-direction: column;
@@ -41,58 +58,184 @@
 }
 
 .filter-btn {
-    padding: 10px;
-    border: 2px solid #374151;
-    border-radius: 8px;
-    background: #1f2937;
+    padding: 10px 14px;
+    border: 2px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.04);
     color: #9ca3af;
     cursor: pointer;
     font-size: 14px;
-    transition: all 0.3s;
+    font-weight: 500;
+    transition: all 0.25s ease;
     text-align: left;
+    letter-spacing: 0.3px;
 }
 
 .filter-btn:hover {
-    background: #374151;
-    color: white;
+    background: rgba(255, 255, 255, 0.08);
+    color: #e5e7eb;
+    border-color: rgba(255, 255, 255, 0.15);
+    transform: translateX(4px);
 }
 
 .filter-btn.active {
     border-color: #3b82f6;
-    background: #1e3a5f;
-    color: white;
+    background: rgba(59, 130, 246, 0.15);
+    color: #60a5fa;
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.1);
 }
 
-/* Статистика */
+/* ===========================
+   СТАТИСТИКА
+   =========================== */
+
+.stats {
+    margin: 15px 0;
+}
+
 .stats p {
-    margin: 8px 0;
-    padding: 6px 10px;
-    background: #1f2937;
-    border-radius: 6px;
+    margin: 6px 0;
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 8px;
     font-size: 14px;
+    color: #d1d5db;
+    transition: all 0.3s;
+}
+
+.stats p:hover {
+    background: rgba(255, 255, 255, 0.07);
 }
 
 .stats span {
     float: right;
-    font-weight: bold;
+    font-weight: 700;
     color: #60a5fa;
 }
 
 hr {
     border: none;
-    border-top: 1px solid #374151;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
     margin: 15px 0;
 }
 
-/* Адаптивность */
-@media (max-width: 768px) {
+/* ===========================
+   КНОПКА СБРОСА
+   =========================== */
+
+#reset-btn {
+    width: 100%;
+    padding: 12px;
+    background: rgba(220, 38, 38, 0.15);
+    color: #f87171;
+    border: 2px solid rgba(220, 38, 38, 0.2);
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+}
+
+#reset-btn:hover {
+    background: rgba(220, 38, 38, 0.25);
+    border-color: rgba(220, 38, 38, 0.4);
+    transform: scale(1.02);
+}
+
+/* ===========================
+   КАРТА
+   =========================== */
+
+#map {
+    position: absolute;
+    left: 260px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: #0a0a0f;
+}
+
+/* ===========================
+   ПОПАП
+   =========================== */
+
+.leaflet-popup-content-wrapper {
+    background: rgba(20, 20, 30, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+}
+
+.leaflet-popup-content {
+    color: #e5e7eb;
+    font-size: 14px;
+    padding: 8px 4px;
+}
+
+.leaflet-popup-tip {
+    background: rgba(20, 20, 30, 0.95);
+}
+
+/* ===========================
+   СКРОЛЛБАР
+   =========================== */
+
+#sidebar::-webkit-scrollbar {
+    width: 4px;
+}
+
+#sidebar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#sidebar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+}
+
+#sidebar::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+/* ===========================
+   АДАПТИВНОСТЬ
+   =========================== */
+
+@media (max-width: 1024px) {
     #sidebar {
-        width: 200px;
+        width: 220px;
         padding: 15px;
     }
     
     #map {
+        left: 220px;
+    }
+}
+
+@media (max-width: 768px) {
+    #sidebar {
+        width: 200px;
+        padding: 12px;
+    }
+    
+    #sidebar h2 {
+        font-size: 18px;
+    }
+    
+    #map {
         left: 200px;
+    }
+    
+    .filter-btn {
+        font-size: 12px;
+        padding: 8px 12px;
+    }
+    
+    .stats p {
+        font-size: 12px;
+        padding: 6px 10px;
     }
 }
 
@@ -100,13 +243,49 @@ hr {
     #sidebar {
         width: 100%;
         height: auto;
+        max-height: 45vh;
         position: relative;
-        padding: 10px;
+        padding: 12px;
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
     
     #map {
         position: relative;
         left: 0;
-        height: 60vh;
+        height: 55vh;
+    }
+    
+    .filter-section {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+    
+    .filter-btn {
+        flex: 1;
+        min-width: 70px;
+        text-align: center;
+        font-size: 11px;
+        padding: 6px 8px;
+    }
+    
+    .stats {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+    
+    .stats p {
+        flex: 1;
+        min-width: 100px;
+        font-size: 11px;
+        padding: 4px 8px;
+        margin: 2px 0;
+    }
+    
+    #reset-btn {
+        padding: 8px;
+        font-size: 12px;
     }
 }
